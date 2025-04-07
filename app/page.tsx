@@ -11,10 +11,6 @@ interface SensorData {
 
 export default function Home() {
   const [data, setData] = useState<SensorData[]>([]);
-  
-  const chartStyle = {
-    textColor: "#000000"
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +38,9 @@ export default function Home() {
           <h2 className="text-lg font-semibold text-black border border-white p-2 rounded">
             Temperatura Actual
           </h2>
-          <GaugeChart id="temp-gauge" nrOfLevels={35} percent={currentTemp / 35} style={chartStyle} />
+          <div className="gauge-container">
+            <GaugeChart id="temp-gauge" nrOfLevels={35} percent={Math.min(currentTemp / 35, 1)} animate={false} />
+          </div>
           <p className="text-black border-2 border-white rounded-lg p-2 mt-2">
             { currentTemp } actual / { (currentTemp / 35 * 100).toFixed(2) } %
           </p>
@@ -54,7 +52,9 @@ export default function Home() {
           <h2 className="text-lg font-semibold text-black border border-white p-2 rounded">
             Humedad Actual
           </h2>
-          <GaugeChart id="hum-gauge" nrOfLevels={40} percent={currentHum / 40} style={chartStyle} />
+          <div className="gauge-container">
+            <GaugeChart id="hum-gauge" nrOfLevels={40} percent={Math.min(currentHum / 40, 1)} animate={false} />
+          </div>
           <p className="text-black border-2 border-white rounded-lg p-2 mt-2">
             { currentHum } actual / { (currentHum / 40 * 100).toFixed(2) } %
           </p>
